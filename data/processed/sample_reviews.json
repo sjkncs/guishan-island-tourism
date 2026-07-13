@@ -1,0 +1,414 @@
+[
+  {
+    "id": "manual_001",
+    "platform": "知乎",
+    "source_url": "https://zhuanlan.zhihu.com/p/416693638",
+    "business_name": "桂山岛某餐厅",
+    "business_type": "餐饮",
+    "content": "120元/人自助，海鲜种类非常少！白贝、花甲、虾、生蚝，非常不新鲜！量非常少，让服务员加白贝只是敷衍了事",
+    "rating": 1.0,
+    "date": "2021-10-05",
+    "year": 2021,
+    "month": 10,
+    "user_location": "未知",
+    "labels": [
+      "A01",
+      "G02"
+    ],
+    "label_details": {
+      "A01": {
+        "label": "食品不新鲜",
+        "category": "食品安全",
+        "severity": "高",
+        "matched_keywords": [
+          "不新鲜"
+        ],
+        "confidence": 0.17
+      },
+      "G02": {
+        "label": "海鲜好吃",
+        "category": "正面体验",
+        "severity": "无",
+        "matched_keywords": [
+          "新鲜"
+        ],
+        "confidence": 0.2
+      }
+    },
+    "sentiment": "neutral",
+    "word_count": 52
+  },
+  {
+    "id": "manual_002",
+    "platform": "微博",
+    "source_url": "https://sina.cn",
+    "business_name": "桂山岛整体",
+    "business_type": "景点",
+    "content": "走了半天桂山岛，确实是没啥好走没啥好看没啥好吃的，消费也没啥优势可言。真就是来躺着最好",
+    "rating": 2.0,
+    "date": "2026-01-24",
+    "year": 2026,
+    "month": 1,
+    "user_location": "广东",
+    "labels": [
+      "G01",
+      "G02"
+    ],
+    "label_details": {
+      "G01": {
+        "label": "风景优美",
+        "category": "正面体验",
+        "severity": "无",
+        "matched_keywords": [
+          "好看"
+        ],
+        "confidence": 0.2
+      },
+      "G02": {
+        "label": "海鲜好吃",
+        "category": "正面体验",
+        "severity": "无",
+        "matched_keywords": [
+          "好吃"
+        ],
+        "confidence": 0.2
+      }
+    },
+    "sentiment": "positive",
+    "word_count": 43
+  },
+  {
+    "id": "manual_003",
+    "platform": "黑猫投诉",
+    "source_url": "https://tousu.sina.cn",
+    "business_name": "观山海酒店",
+    "business_type": "住宿",
+    "content": "通过美团预订后因故无法入住，酒店和美团拒绝退还2096元，私自办理入住、平台不得取消属霸王条款",
+    "rating": 1.0,
+    "date": "2023-08-25",
+    "year": 2023,
+    "month": 8,
+    "user_location": "未知",
+    "labels": [
+      "C04",
+      "G01"
+    ],
+    "label_details": {
+      "C04": {
+        "label": "退改纠纷",
+        "category": "服务态度",
+        "severity": "高",
+        "matched_keywords": [
+          "霸王条款"
+        ],
+        "confidence": 0.2
+      },
+      "G01": {
+        "label": "风景优美",
+        "category": "正面体验",
+        "severity": "无",
+        "matched_keywords": [
+          "美"
+        ],
+        "confidence": 0.2
+      }
+    },
+    "sentiment": "neutral",
+    "word_count": 47
+  },
+  {
+    "id": "manual_004",
+    "platform": "易游网",
+    "source_url": "https://eztravel.com",
+    "business_name": "上岛民宿",
+    "business_type": "住宿",
+    "content": "450块住10平米，行李都没地方放。宾馆又旧又潮湿又小，功夫茶具是用来摆设的不能用，厕所天板缺一块",
+    "rating": 1.5,
+    "date": "2026-03-15",
+    "year": 2026,
+    "month": 3,
+    "user_location": "未知",
+    "labels": [
+      "B03",
+      "B05"
+    ],
+    "label_details": {
+      "B03": {
+        "label": "设施陈旧",
+        "category": "店铺环境",
+        "severity": "中",
+        "matched_keywords": [
+          "旧"
+        ],
+        "confidence": 0.14
+      },
+      "B05": {
+        "label": "空间狭小",
+        "category": "店铺环境",
+        "severity": "低",
+        "matched_keywords": [
+          "小",
+          "没地方放"
+        ],
+        "confidence": 0.4
+      }
+    },
+    "sentiment": "negative",
+    "word_count": 49
+  },
+  {
+    "id": "manual_005",
+    "platform": "易游网",
+    "source_url": "https://eztravel.com",
+    "business_name": "上岛民宿",
+    "business_type": "住宿",
+    "content": "去到了和我说没房了，被带到别的民宿。实际和图片不符，房间卫生比较差，有一两只小蟑螂，厕所有异味",
+    "rating": 1.0,
+    "date": "2025-04-20",
+    "year": 2025,
+    "month": 4,
+    "user_location": "未知",
+    "labels": [
+      "A01",
+      "A02",
+      "B02",
+      "B05"
+    ],
+    "label_details": {
+      "A01": {
+        "label": "食品不新鲜",
+        "category": "食品安全",
+        "severity": "高",
+        "matched_keywords": [
+          "异味"
+        ],
+        "confidence": 0.17
+      },
+      "A02": {
+        "label": "食品异物",
+        "category": "食品安全",
+        "severity": "高",
+        "matched_keywords": [
+          "蟑螂"
+        ],
+        "confidence": 0.14
+      },
+      "B02": {
+        "label": "虫害问题",
+        "category": "店铺环境",
+        "severity": "中高",
+        "matched_keywords": [
+          "蟑螂"
+        ],
+        "confidence": 0.12
+      },
+      "B05": {
+        "label": "空间狭小",
+        "category": "店铺环境",
+        "severity": "低",
+        "matched_keywords": [
+          "小"
+        ],
+        "confidence": 0.2
+      }
+    },
+    "sentiment": "negative",
+    "word_count": 47
+  },
+  {
+    "id": "manual_006",
+    "platform": "易游网",
+    "source_url": "https://eztravel.com",
+    "business_name": "海顺精品民宿",
+    "business_type": "住宿",
+    "content": "房间里面有很多小蟑螂，床单被套都是毛发。每次开热水都会出一阵黄颜色的水",
+    "rating": 2.0,
+    "date": "2026-04-10",
+    "year": 2026,
+    "month": 4,
+    "user_location": "未知",
+    "labels": [
+      "A02",
+      "B02",
+      "B05"
+    ],
+    "label_details": {
+      "A02": {
+        "label": "食品异物",
+        "category": "食品安全",
+        "severity": "高",
+        "matched_keywords": [
+          "蟑螂"
+        ],
+        "confidence": 0.14
+      },
+      "B02": {
+        "label": "虫害问题",
+        "category": "店铺环境",
+        "severity": "中高",
+        "matched_keywords": [
+          "蟑螂"
+        ],
+        "confidence": 0.12
+      },
+      "B05": {
+        "label": "空间狭小",
+        "category": "店铺环境",
+        "severity": "低",
+        "matched_keywords": [
+          "小"
+        ],
+        "confidence": 0.2
+      }
+    },
+    "sentiment": "negative",
+    "word_count": 35
+  },
+  {
+    "id": "manual_007",
+    "platform": "易游网",
+    "source_url": "https://eztravel.com",
+    "business_name": "驿旅阳光民宿",
+    "business_type": "住宿",
+    "content": "周末特贵500多，空调不制冷噪声很大，楼顶白天巨热空调开16度开了很久温度也没降下来。一次性拖鞋矿泉水要问才有",
+    "rating": 2.0,
+    "date": "2025-08-15",
+    "year": 2025,
+    "month": 8,
+    "user_location": "未知",
+    "labels": [
+      "D01",
+      "D04"
+    ],
+    "label_details": {
+      "D01": {
+        "label": "价格虚高/宰客",
+        "category": "性价比",
+        "severity": "高",
+        "matched_keywords": [
+          "贵"
+        ],
+        "confidence": 0.14
+      },
+      "D04": {
+        "label": "节假日涨价",
+        "category": "性价比",
+        "severity": "中",
+        "matched_keywords": [
+          "周末特贵"
+        ],
+        "confidence": 0.25
+      }
+    },
+    "sentiment": "negative",
+    "word_count": 55
+  },
+  {
+    "id": "manual_008",
+    "platform": "易游网",
+    "source_url": "https://eztravel.com",
+    "business_name": "蓝色海岸民宿",
+    "business_type": "住宿",
+    "content": "风景很美，服务热情周到，还有免费升级和接送服务。海鲜好吃新鲜，推荐",
+    "rating": 5.0,
+    "date": "2026-02-10",
+    "year": 2026,
+    "month": 2,
+    "user_location": "广东",
+    "labels": [
+      "G01",
+      "G02",
+      "G03"
+    ],
+    "label_details": {
+      "G01": {
+        "label": "风景优美",
+        "category": "正面体验",
+        "severity": "无",
+        "matched_keywords": [
+          "美"
+        ],
+        "confidence": 0.2
+      },
+      "G02": {
+        "label": "海鲜好吃",
+        "category": "正面体验",
+        "severity": "无",
+        "matched_keywords": [
+          "好吃",
+          "新鲜",
+          "推荐"
+        ],
+        "confidence": 0.6
+      },
+      "G03": {
+        "label": "服务热情",
+        "category": "正面体验",
+        "severity": "无",
+        "matched_keywords": [
+          "热情",
+          "周到"
+        ],
+        "confidence": 0.4
+      }
+    },
+    "sentiment": "positive",
+    "word_count": 33
+  },
+  {
+    "id": "manual_009",
+    "platform": "珠海票务网",
+    "source_url": "https://m.zh-piao.com",
+    "business_name": "桂语香山酒店",
+    "business_type": "住宿",
+    "content": "旧桂山标准房一般，新桂山标准双人间空间比较小。整体还行吧",
+    "rating": 3.5,
+    "date": "2025-06-10",
+    "year": 2025,
+    "month": 6,
+    "user_location": "未知",
+    "labels": [
+      "B03",
+      "B05"
+    ],
+    "label_details": {
+      "B03": {
+        "label": "设施陈旧",
+        "category": "店铺环境",
+        "severity": "中",
+        "matched_keywords": [
+          "旧"
+        ],
+        "confidence": 0.14
+      },
+      "B05": {
+        "label": "空间狭小",
+        "category": "店铺环境",
+        "severity": "低",
+        "matched_keywords": [
+          "小"
+        ],
+        "confidence": 0.2
+      }
+    },
+    "sentiment": "negative",
+    "word_count": 28
+  },
+  {
+    "id": "manual_010",
+    "platform": "南方+",
+    "source_url": "https://nfnews.com",
+    "business_name": "桂山岛网红餐厅",
+    "business_type": "餐饮",
+    "content": "珠海市查餐厅网络直播执法行动走进桂山岛，重点检查网红餐厅操作间、食品储存间、餐具消毒间，发现问题要求限期整改",
+    "rating": null,
+    "date": "2025-06-11",
+    "year": 2025,
+    "month": 6,
+    "user_location": null,
+    "labels": [],
+    "label_details": {},
+    "sentiment": "neutral",
+    "word_count": 54
+  }
+]
