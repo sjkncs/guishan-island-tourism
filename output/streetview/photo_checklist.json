@@ -1,0 +1,790 @@
+{
+  "no_photo_with_reviews": [
+    {
+      "name": "桂山海鲜市场(农贸市场)",
+      "cat": "购物",
+      "reviews": 5,
+      "rating": "4.1",
+      "addr": "桂山镇一环路60号",
+      "poi_id": "B0FFKZ2CC5"
+    },
+    {
+      "name": "屿景湾海鲜酒家",
+      "cat": "餐饮",
+      "reviews": 1,
+      "rating": "3.9",
+      "addr": "桂山镇桂山大道海鲜街2号",
+      "poi_id": "B0HG71KIQC"
+    }
+  ],
+  "no_photo_without_reviews": [
+    {
+      "name": "珠海裕和宾馆(桂山岛店)",
+      "cat": "住宿",
+      "reviews": 0,
+      "rating": "4.6",
+      "addr": "桂山镇一环路51号",
+      "poi_id": "B0FFHQPJF1"
+    },
+    {
+      "name": "粤湘情",
+      "cat": "餐饮",
+      "reviews": 0,
+      "rating": "4.4",
+      "addr": "桂山镇桂海二路58号负一层A铺",
+      "poi_id": "B0FFKK9NQX"
+    },
+    {
+      "name": "珠海九龙塘客栈(桂山岛店)",
+      "cat": "住宿",
+      "reviews": 0,
+      "rating": "4.3",
+      "addr": "桂山镇桂海一路3号",
+      "poi_id": "B0FFJTBI4I"
+    },
+    {
+      "name": "合兴商店",
+      "cat": "购物",
+      "reviews": 0,
+      "rating": "4.1",
+      "addr": "一环路60号桂山市场1楼",
+      "poi_id": "B0H2A77032"
+    },
+    {
+      "name": "淘小鲜海鲜餐厅",
+      "cat": "餐饮",
+      "reviews": 0,
+      "rating": "4.1",
+      "addr": "桂山镇桂山大道27号",
+      "poi_id": "B0FFL4B2AJ"
+    },
+    {
+      "name": "雄烽海鲜美食",
+      "cat": "餐饮",
+      "reviews": 0,
+      "rating": "4.1",
+      "addr": "桂山镇桂湾一路桂海大楼102铺",
+      "poi_id": "B0IAJSWEFP"
+    },
+    {
+      "name": "中国石油桂山岛加油站",
+      "cat": "汽车服务",
+      "reviews": 0,
+      "rating": "4.0",
+      "addr": "桂山岛风景区(西北角)",
+      "poi_id": "B0K39A1X9J"
+    },
+    {
+      "name": "壹品汇海鲜餐厅海鲜加工(桂海一路店)",
+      "cat": "餐饮",
+      "reviews": 0,
+      "rating": "3.9",
+      "addr": "桂山派出所南侧",
+      "poi_id": "B0JBY5V507"
+    },
+    {
+      "name": "文天祥广场",
+      "cat": "景点",
+      "reviews": 0,
+      "rating": "3.9",
+      "addr": "桂山村",
+      "poi_id": "B0FFFS8BOI"
+    },
+    {
+      "name": "桂海鲜美食",
+      "cat": "餐饮",
+      "reviews": 0,
+      "rating": "3.9",
+      "addr": "桂山大道38号桂海鲜美食",
+      "poi_id": "B0GDRRBPQS"
+    },
+    {
+      "name": "珠海中燃桂山水上加油站",
+      "cat": "交通",
+      "reviews": 0,
+      "rating": "3.9",
+      "addr": "",
+      "poi_id": "B0LBHHZDEG"
+    },
+    {
+      "name": "赖记百货商行",
+      "cat": "购物",
+      "reviews": 0,
+      "rating": "3.9",
+      "addr": "桂山派出所西南侧50米",
+      "poi_id": "B0JGHKPUGC"
+    },
+    {
+      "name": "智选海鲜酒家(珠海桂山岛智选假日酒店分店)",
+      "cat": "餐饮",
+      "reviews": 0,
+      "rating": "3.8",
+      "addr": "桂山镇桂山大道32号302房",
+      "poi_id": "B0MBKCR239"
+    },
+    {
+      "name": "万山海战遗址",
+      "cat": "景点",
+      "reviews": 0,
+      "rating": "3.7",
+      "addr": "桂山镇桂山岛吊藤湾",
+      "poi_id": "B0H2JMT2WT"
+    },
+    {
+      "name": "屿光漫调烧烤店(庄记海鲜餐厅分店)",
+      "cat": "休闲",
+      "reviews": 0,
+      "rating": "3.7",
+      "addr": "桂山派出所西南侧70米",
+      "poi_id": "B0L1UB29FV"
+    },
+    {
+      "name": "望慈山房",
+      "cat": "景点",
+      "reviews": 0,
+      "rating": "3.7",
+      "addr": "万山群岛联合指挥部旧址",
+      "poi_id": "B02F40PMC6"
+    },
+    {
+      "name": "珠海市桂山镇零三八甜品屋",
+      "cat": "餐饮",
+      "reviews": 0,
+      "rating": "3.7",
+      "addr": "桂山镇桂海村交通大厦1层2号",
+      "poi_id": "B0FFHCYQ0K"
+    },
+    {
+      "name": "麦记美食店",
+      "cat": "餐饮",
+      "reviews": 0,
+      "rating": "3.7",
+      "addr": "中国珠海万山港海事处东北侧70米",
+      "poi_id": "B0JGRZ7ZJ3"
+    },
+    {
+      "name": "得意海鲜茶餐厅(桂山岛店)",
+      "cat": "餐饮",
+      "reviews": 0,
+      "rating": "3.6",
+      "addr": "桂山镇一环路桂海大道13-15号",
+      "poi_id": "B0FFLHIUPL"
+    },
+    {
+      "name": "环翠亭",
+      "cat": "景点",
+      "reviews": 0,
+      "rating": "3.5",
+      "addr": "桂山岛风景区内(南侧)",
+      "poi_id": "B0J2JDC5LX"
+    },
+    {
+      "name": "观澜亭",
+      "cat": "景点",
+      "reviews": 0,
+      "rating": "3.5",
+      "addr": "桂山舰纪念公园",
+      "poi_id": "B0KKOKX9FZ"
+    },
+    {
+      "name": "解放万山群岛烈士纪念碑",
+      "cat": "景点",
+      "reviews": 0,
+      "rating": "3.5",
+      "addr": "山房路与华夏路交叉口东260米",
+      "poi_id": "B0FFGD9V4P"
+    },
+    {
+      "name": "李记百货商场",
+      "cat": "购物",
+      "reviews": 0,
+      "rating": "3.4",
+      "addr": "桂山派出所西南侧70米",
+      "poi_id": "B0FFKJNLLN"
+    },
+    {
+      "name": "万山海战遗址文物碑",
+      "cat": "景点",
+      "reviews": 0,
+      "rating": "3.3",
+      "addr": "万山海战遗址",
+      "poi_id": "B0MALL8AJL"
+    },
+    {
+      "name": "日升商店(珠海农商银行桂山支行店)",
+      "cat": "购物",
+      "reviews": 0,
+      "rating": "3.3",
+      "addr": "桂山派出所西北侧50米",
+      "poi_id": "B0J1DYZ3FN"
+    },
+    {
+      "name": "肥妹商店",
+      "cat": "购物",
+      "reviews": 0,
+      "rating": "3.3",
+      "addr": "商业一街13正北方向80米",
+      "poi_id": "B0FFHHCGAB"
+    },
+    {
+      "name": "解放万山群岛联合指挥部旧址",
+      "cat": "景点",
+      "reviews": 0,
+      "rating": "3.3",
+      "addr": "山房路与龙岗街交叉口东60米",
+      "poi_id": "B0KUFCY0HW"
+    },
+    {
+      "name": "肥仔商行",
+      "cat": "购物",
+      "reviews": 0,
+      "rating": "3.2",
+      "addr": "桂山镇交通大厦121号地下",
+      "poi_id": "B0KR59YULS"
+    },
+    {
+      "name": "万山群岛联合指挥部旧址",
+      "cat": "景点",
+      "reviews": 0,
+      "rating": "3.1",
+      "addr": "唐家湾镇山房路234号共乐园(西南角)",
+      "poi_id": "B0LAV16Q74"
+    },
+    {
+      "name": "裕华商店(桂山岛风景区店)",
+      "cat": "购物",
+      "reviews": 0,
+      "rating": "2.3",
+      "addr": "桂山派出所西南侧110米",
+      "poi_id": "B0L0MN7H9V"
+    },
+    {
+      "name": "众归休闲渔业码头",
+      "cat": "交通",
+      "reviews": 0,
+      "rating": "",
+      "addr": "桂山岛桂山大道海鲜街3号",
+      "poi_id": "B0LAS50Q7Y"
+    },
+    {
+      "name": "公共厕所",
+      "cat": "公共设施",
+      "reviews": 0,
+      "rating": "",
+      "addr": "桂山小学北侧220米",
+      "poi_id": "B0FFLHZAQG"
+    },
+    {
+      "name": "公共厕所",
+      "cat": "公共设施",
+      "reviews": 0,
+      "rating": "",
+      "addr": "桂山文化中心南侧80米",
+      "poi_id": "B0FFKUF99T"
+    },
+    {
+      "name": "公共厕所",
+      "cat": "公共设施",
+      "reviews": 0,
+      "rating": "",
+      "addr": "桂山镇中心卫生院南侧210米",
+      "poi_id": "B0FFLHZ96C"
+    },
+    {
+      "name": "公共厕所",
+      "cat": "公共设施",
+      "reviews": 0,
+      "rating": "",
+      "addr": "桂山灯塔东北侧50米",
+      "poi_id": "B0FFKU2SLX"
+    },
+    {
+      "name": "桂山小学",
+      "cat": "教育",
+      "reviews": 0,
+      "rating": "",
+      "addr": "珠海SEA·WIND海枫民宿北侧80米",
+      "poi_id": "B0FFL0H0PE"
+    },
+    {
+      "name": "桂山岛客运站售票处",
+      "cat": "生活服务",
+      "reviews": 0,
+      "rating": "",
+      "addr": "万山海关西侧90米",
+      "poi_id": "B0L62MMI6T"
+    },
+    {
+      "name": "桂山岛风景区地面停车点",
+      "cat": "交通",
+      "reviews": 0,
+      "rating": "",
+      "addr": "桂山岛风景区",
+      "poi_id": "B0H1TRK7WS"
+    },
+    {
+      "name": "桂海村公共厕所",
+      "cat": "公共设施",
+      "reviews": 0,
+      "rating": "",
+      "addr": "桂山镇桂海村",
+      "poi_id": "B0J1MZS9BW"
+    },
+    {
+      "name": "淑芳斋海景民宿(桂山岛风景区店)",
+      "cat": "住宿",
+      "reviews": 0,
+      "rating": "",
+      "addr": "桂山镇交通大厦(一环路)",
+      "poi_id": "B0LG9DT7E3"
+    },
+    {
+      "name": "珠海市桂山镇中心卫生院",
+      "cat": "医疗",
+      "reviews": 0,
+      "rating": "",
+      "addr": "桂山镇桂海三路51号",
+      "poi_id": "B0FFL1YQDT"
+    }
+  ],
+  "has_photo": [
+    {
+      "name": "珠海桂山岛屿家民宿",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "桂山岛一方小院",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 4
+    },
+    {
+      "name": "桂山岛尚岛小居民宿",
+      "cat": "住宿",
+      "photos": 3,
+      "reviews": 9
+    },
+    {
+      "name": "桂山岛逸海居特色民宿",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 4
+    },
+    {
+      "name": "雅石缘民宿(桂山岛店)",
+      "cat": "住宿",
+      "photos": 3,
+      "reviews": 10
+    },
+    {
+      "name": "半山诗意民宿(桂山镇)",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "桂山岛.喜悦精品民宿",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "桂山岛2127贰楼民宿",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 4
+    },
+    {
+      "name": "清枫民宿(桂山岛店)",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "珠海市桂山岛海云民宿",
+      "cat": "住宿",
+      "photos": 3,
+      "reviews": 20
+    },
+    {
+      "name": "珠海桂山岛赶海屋民宿(桂山村店)",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "览潮居·雅舍(桂山岛店)",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "悦隐·山海雅筑海景民宿(珠海桂山岛店)",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "桂山岛风景区",
+      "cat": "景点",
+      "photos": 1,
+      "reviews": 3
+    },
+    {
+      "name": "珠海SEA·WIND海枫海景民宿",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "珠海半山石筑民宿(桂山岛店)",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 1
+    },
+    {
+      "name": "珠海桂山岛半缘居",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 1
+    },
+    {
+      "name": "珠海桂山岛智选假日酒店",
+      "cat": "住宿",
+      "photos": 3,
+      "reviews": 40
+    },
+    {
+      "name": "珠海桂山岛蓝色海岸民宿",
+      "cat": "住宿",
+      "photos": 2,
+      "reviews": 82
+    },
+    {
+      "name": "珠海海景驿站(桂山岛店)",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "珠海阅海阁民宿(2号店)",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "桂山熹居",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "里苑·中桂岛度假酒店",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "里苑·桂汐湾畔精品海景民宿(珠海桂山岛店)",
+      "cat": "住宿",
+      "photos": 3,
+      "reviews": 35
+    },
+    {
+      "name": "SEAWIND微枫海景民宿",
+      "cat": "住宿",
+      "photos": 3,
+      "reviews": 20
+    },
+    {
+      "name": "云锦阁民宿",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "珠海桂山岛1号客栈",
+      "cat": "住宿",
+      "photos": 2,
+      "reviews": 20
+    },
+    {
+      "name": "珠海桂山岛桂语香山酒店",
+      "cat": "住宿",
+      "photos": 3,
+      "reviews": 16
+    },
+    {
+      "name": "珠海桂山道禾璞树海岛花园民宿",
+      "cat": "住宿",
+      "photos": 3,
+      "reviews": 10
+    },
+    {
+      "name": "7-ELEVEn(桂山岛风景区店)",
+      "cat": "购物",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "桂山岛江兴海鲜餐厅",
+      "cat": "餐饮",
+      "photos": 1,
+      "reviews": 2
+    },
+    {
+      "name": "珠海渔家·海景民宿(桂山岛店)",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "闲云居精品民宿(珠海桂山岛店)",
+      "cat": "住宿",
+      "photos": 3,
+      "reviews": 28
+    },
+    {
+      "name": "珠海海星度假酒店",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "览潮花间舍海景民宿(珠海桂山岛)",
+      "cat": "住宿",
+      "photos": 3,
+      "reviews": 17
+    },
+    {
+      "name": "桂山岛心语民宿",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 4
+    },
+    {
+      "name": "珠海少女小渔民宿(桂山岛店)",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 4
+    },
+    {
+      "name": "珠海市桂山镇肆号餐饮店",
+      "cat": "餐饮",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "珠海桂山金悦旅店",
+      "cat": "住宿",
+      "photos": 3,
+      "reviews": 10
+    },
+    {
+      "name": "北山观景台",
+      "cat": "景点",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "妈祖庙",
+      "cat": "景点",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "桂山舰纪念公园",
+      "cat": "景点",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "一号堤",
+      "cat": "景点",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "一湾沙滩",
+      "cat": "景点",
+      "photos": 1,
+      "reviews": 1
+    },
+    {
+      "name": "桂山岛胶己人休闲渔家乐",
+      "cat": "休闲",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "港式茶餐厅",
+      "cat": "餐饮",
+      "photos": 1,
+      "reviews": 1
+    },
+    {
+      "name": "珠海桂山岛元本桂舍民宿",
+      "cat": "住宿",
+      "photos": 3,
+      "reviews": 31
+    },
+    {
+      "name": "珠海桂山岛家庭休闲度假公寓",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "鲜也海鲜餐厅",
+      "cat": "餐饮",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "桂山·日月贝海鲜餐厅",
+      "cat": "餐饮",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "桂山灯塔",
+      "cat": "景点",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "桂山非遗工坊G-Coffee",
+      "cat": "餐饮",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "港龙茶餐厅(桂山岛风景区店)",
+      "cat": "餐饮",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "珠海桂山岛小海豚民宿",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "九天海岸水上运动中心(桂山岛风景区一湾店)",
+      "cat": "休闲",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "珠海桂山岛上岛民宿",
+      "cat": "住宿",
+      "photos": 2,
+      "reviews": 16
+    },
+    {
+      "name": "珠海潮信客栈(桂山岛风景区店)",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "港湾海鲜餐厅",
+      "cat": "餐饮",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "珠海桂山岛听涛居客栈",
+      "cat": "住宿",
+      "photos": 1,
+      "reviews": 4
+    },
+    {
+      "name": "桂山号英雄登陆点",
+      "cat": "景点",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "外伶仃岛桂山岛航线(桂山岛-外伶仃岛)",
+      "cat": "景点",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "码头广场",
+      "cat": "景点",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "桂山岛3海里打卡点",
+      "cat": "景点",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "桂山法治文化公园",
+      "cat": "景点",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "桂山镇圩镇客厅",
+      "cat": "景点",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "中国珠海万山港海事处",
+      "cat": "政府",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "桂山岛",
+      "cat": "地名",
+      "photos": 1,
+      "reviews": 37
+    },
+    {
+      "name": "桂山岛客运站",
+      "cat": "交通",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "桂山岛游客中心",
+      "cat": "生活服务",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "桂山码头",
+      "cat": "交通",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "桂山舰烈士陵园",
+      "cat": "生活服务",
+      "photos": 1,
+      "reviews": 0
+    },
+    {
+      "name": "珠海桂山岛(轮渡站)",
+      "cat": "交通",
+      "photos": 1,
+      "reviews": 0
+    }
+  ],
+  "summary": {
+    "total_pois": 115,
+    "has_photo": 72,
+    "no_photo": 43,
+    "no_photo_need_shooting": 2
+  }
+}
