@@ -53,6 +53,18 @@ COCO_CLASSES = [
     'tvmonitor'
 ]
 
+# Cityscapes 19 类标签 (Cityscapes预训练)
+CITYSCAPES_CLASSES = [
+    'road', 'sidewalk', 'building', 'wall', 'fence',
+    'pole', 'traffic_light', 'traffic_sign', 'vegetation', 'terrain',
+    'sky', 'person', 'rider', 'car', 'truck',
+    'bus', 'train', 'motorcycle', 'bicycle'
+]
+
+# 当前使用的模型类型 (运行时设置)
+MODEL_TYPE = 'coco'  # 'cityscapes' or 'coco'
+ACTIVE_CLASSES = COCO_CLASSES  # 动态切换
+
 # 街景分析关注的语义组
 STREET_GROUPS = {
     'vehicles': ['car', 'bus', 'motorbike', 'bicycle', 'train'],
@@ -61,6 +73,17 @@ STREET_GROUPS = {
     'animals': ['cat', 'dog', 'horse', 'cow', 'sheep', 'bird'],
     'objects': ['bottle', 'chair', 'sofa', 'tvmonitor', 'diningtable'],
     'watercraft': ['boat'],
+}
+
+# Cityscapes 语义组
+CITYSCAPES_GROUPS = {
+    'road_infra': ['road', 'sidewalk'],
+    'buildings': ['building', 'wall', 'fence'],
+    'objects': ['pole', 'traffic_light', 'traffic_sign'],
+    'nature': ['vegetation', 'terrain'],
+    'sky': ['sky'],
+    'people': ['person', 'rider'],
+    'vehicles': ['car', 'truck', 'bus', 'train', 'motorcycle', 'bicycle'],
 }
 
 COCO_COLORS = [
@@ -185,20 +208,59 @@ def compute_hsv_indicators(img):
 # ── 语义分割 (torchvision DeepLabV3 COCO + HSV 场景分割) ──
 
 def load_segmentation_model():
-    """加载 torchvision DeepLabV3 ResNet101 (COCO预训练)"""
+    """优先加载 Cityscapes 预训练 DeepLabV3, 失败则回退 COCO"""
+    global MODEL_TYPE, ACTIVE_CLASSES
     import torch
-    from torchvision.models.segmentation import deeplabv3_resnet101, DeepLabV3_ResNet101_Weights
 
-    print("[INFO] 加载 torchvision DeepLabV3 ResNet101 (COCO预训练)...")
+    # ── 尝试 1: Cityscapes 预训练 (Koushim/deeplabv3-resnet50-cityscapes) ──
+    # 注意: Koushim 模型使用 backbone. 前缀, 与 torchvision deeplabv3_resnet50 的 key 结构不完全匹配
+    # 加载后推理结果异常 (building=0%, person=51%), 暂禁用, 待修复 key 映射
+    cs_weights_candidates = []
+    cs_weights = None
+    for p in cs_weights_candidates:
+        if p.exists() and p.stat().st_size > 160_000_000:
+            cs_weights = p
+            break
+
+    if cs_weights:
+        print(f"[INFO] 加载 Cityscapes DeepLabV3 ResNet50 (19类)...")
+        print(f"  权重文件: {cs_weights} ({cs_weights.stat().st_size/1e6:.0f}MB)")
+        try:
+            from torchvision.models.segmentation import deeplabv3_resnet50
+            # 先创建无权重模型 (避免额外下载 backbone)
+            model = deeplabv3_resnet50(weights=None, num_classes=19, aux_loss=None)
+            state = torch.load(str(cs_weights), map_location='cpu', weights_only=False)
+            if isinstance(state, dict) and 'state_dict' in state:
+                state = state['state_dict']
+            elif isinstance(state, dict) and 'model' in state:
+                state = state['model']
+            # Filter out unexpected keys
+            model_sd = model.state_dict()
+            filtered = {k: v for k, v in state.items() if k in model_sd and v.shape == model_sd[k].shape}
+            missing = model.load_state_dict(filtered, strict=False)
+            print(f"  Cityscapes 权重加载成功!")
+            print(f"  匹配层: {len(filtered)}, 缺失: {len(missing.missing_keys)}, 多余: {len(missing.unexpected_keys)}")
+            MODEL_TYPE = 'cityscapes'
+            ACTIVE_CLASSES = CITYSCAPES_CLASSES
+            model.eval()
+            return model
+        except Exception as e:
+            print(f"  [WARN] Cityscapes 加载失败: {e}")
+
+    # ── 回退: COCO 预训练 (torchvision) ──
+    print("[INFO] 回退: 加载 torchvision DeepLabV3 ResNet101 (COCO预训练, 21类)...")
     try:
+        from torchvision.models.segmentation import deeplabv3_resnet101, DeepLabV3_ResNet101_Weights
         weights = DeepLabV3_ResNet101_Weights.DEFAULT
         model = deeplabv3_resnet101(weights=weights)
-        print("  COCO预训练权重加载成功 (21类)")
+        print("  COCO预训练权重加载成功")
     except Exception as e:
-        print(f"  [WARN] COCO权重加载失败: {e}")
-        print("  尝试无预训练...")
+        print(f"  [WARN] COCO也失败: {e}")
+        from torchvision.models.segmentation import deeplabv3_resnet101
         model = deeplabv3_resnet101(weights=None)
 
+    MODEL_TYPE = 'coco'
+    ACTIVE_CLASSES = COCO_CLASSES
     model.eval()
     return model
 
@@ -251,28 +313,25 @@ def run_semantic_segmentation(model, img):
     """对单张图片执行语义分割 + HSV 场景分割，返回综合结果"""
     import torch
 
-    # DeepLabV3 COCO 推理
+    # DeepLabV3 推理
     with torch.no_grad():
         x = preprocess_for_deeplab(img)
         output = model(x)
         pred = output['out'].argmax(dim=1).squeeze().numpy()
 
     total = pred.size
-    coco_ratios = {}
-    for i, cls_name in enumerate(COCO_CLASSES):
-        count = (pred == i).sum()
-        coco_ratios[cls_name] = count / total
+    seg_ratios = {}
+    for i, cls_name in enumerate(ACTIVE_CLASSES):
+        if i < pred.max() + 1 or i == 0:
+            count = (pred == i).sum()
+            seg_ratios[cls_name] = count / total
+        else:
+            seg_ratios[cls_name] = 0.0
 
     # HSV 场景分割补充
     hsv_scene = hsv_scene_segmentation(img)
 
-    # 组合语义组
-    vehicle_ratio = sum(coco_ratios.get(c, 0) for c in ['car', 'bus', 'motorbike', 'bicycle', 'train'])
-    people_ratio = coco_ratios.get('person', 0)
-    coco_veg = coco_ratios.get('pottedplant', 0)
-    boat_ratio = coco_ratios.get('boat', 0)
-
-    return coco_ratios, hsv_scene, pred
+    return seg_ratios, hsv_scene, pred
 
 
 # ── 主分析流程 ──
@@ -304,48 +363,67 @@ def main():
         if img is None:
             continue
 
+        # 缩放到合理尺寸以节省内存 (保留宽高比, 最长边 1024)
+        h, w = img.shape[:2]
+        max_dim = 1024
+        if max(h, w) > max_dim:
+            scale = max_dim / max(h, w)
+            new_w, new_h = int(w * scale), int(h * scale)
+            img = cv2.resize(img, (new_w, new_h), interpolation=cv2.INTER_AREA)
+
         # HSV 指标
         hsv = compute_hsv_indicators(img)
 
-        # 语义分割 (COCO + HSV场景)
+        # 语义分割 (Cityscapes 或 COCO + HSV场景)
         try:
-            coco_ratios, hsv_scene, pred_mask = run_semantic_segmentation(model, img)
+            seg_ratios, hsv_scene, pred_mask = run_semantic_segmentation(model, img)
         except Exception as e:
             print(f"  [ERROR] 分割失败: {e}")
-            coco_ratios = {c: 0.0 for c in COCO_CLASSES}
+            seg_ratios = {c: 0.0 for c in ACTIVE_CLASSES}
             hsv_scene = {k: 0.0 for k in ['hsv_sky', 'hsv_sea', 'hsv_green', 'hsv_building', 'hsv_road', 'hsv_other']}
 
         row = {
             'filename': photo['filename'],
             'location': photo['location'],
             'relative_path': photo['relative'],
+            'model_type': MODEL_TYPE,
         }
         # HSV 指标
         for k, v in hsv.items():
             row[f'hsv_{k}'] = v
-        # COCO 类别比
-        for cls, ratio in coco_ratios.items():
-            row[f'coco_{cls}'] = ratio
+        # 语义分割类别比 (Cityscapes 或 COCO)
+        for cls, ratio in seg_ratios.items():
+            row[f'seg_{cls}'] = ratio
         # HSV 场景分割
         for k, v in hsv_scene.items():
             row[f'scene_{k}'] = v
-        # 复合指标
-        coco_vehicle = sum(coco_ratios.get(c, 0) for c in ['car', 'bus', 'motorbike', 'bicycle', 'train'])
-        coco_people = coco_ratios.get('person', 0)
-        coco_veg = coco_ratios.get('pottedplant', 0)
-        coco_boat = coco_ratios.get('boat', 0)
+
+        # 复合指标 (根据模型类型)
+        if MODEL_TYPE == 'cityscapes':
+            seg_vehicle = sum(seg_ratios.get(c, 0) for c in ['car', 'truck', 'bus', 'train', 'motorcycle', 'bicycle'])
+            seg_people = sum(seg_ratios.get(c, 0) for c in ['person', 'rider'])
+            seg_veg = sum(seg_ratios.get(c, 0) for c in ['vegetation', 'terrain'])
+            seg_road = sum(seg_ratios.get(c, 0) for c in ['road', 'sidewalk'])
+            seg_built = sum(seg_ratios.get(c, 0) for c in ['building', 'wall', 'fence'])
+        else:
+            seg_vehicle = sum(seg_ratios.get(c, 0) for c in ['car', 'bus', 'motorbike', 'bicycle', 'train'])
+            seg_people = seg_ratios.get('person', 0)
+            seg_veg = seg_ratios.get('pottedplant', 0)
+            seg_road = 0.0
+            seg_built = 0.0
 
         scene_natural = hsv_scene['hsv_sky'] + hsv_scene['hsv_green'] + hsv_scene['hsv_sea']
         scene_built = hsv_scene['hsv_building'] + hsv_scene['hsv_road']
 
-        row['coco_vehicle_total'] = coco_vehicle
-        row['coco_people_total'] = coco_people
-        row['coco_veg_total'] = coco_veg
-        row['coco_boat_total'] = coco_boat
+        row['seg_vehicle_total'] = seg_vehicle
+        row['seg_people_total'] = seg_people
+        row['seg_veg_total'] = seg_veg
+        row['seg_road_total'] = seg_road
+        row['seg_built_total'] = seg_built
         row['scene_natural_ratio'] = scene_natural
         row['scene_built_ratio'] = scene_built
         row['scene_natural_built_ratio'] = scene_natural / (scene_built + 1e-6)
-        row['scene_urban_intensity'] = scene_built + coco_vehicle + coco_people
+        row['scene_urban_intensity'] = scene_built + seg_vehicle + seg_people
 
         results.append(row)
 
@@ -361,7 +439,7 @@ def main():
     df.to_csv(str(csv_path), index=False, encoding='utf-8-sig')
 
     # 5. 异常检测 (Z-score)
-    numeric_cols = [c for c in df.columns if c.startswith('hsv_') or c.startswith('scene_') or c.startswith('coco_')]
+    numeric_cols = [c for c in df.columns if c.startswith('hsv_') or c.startswith('scene_') or c.startswith('seg_')]
     anomaly_df = df[['filename', 'location']].copy()
     for col in numeric_cols:
         if col in df.columns:
@@ -570,7 +648,7 @@ def generate_fig4_scatter(df):
         ('hsv_GVI', 'hsv_openness', 'GVI vs 开放度'),
         ('hsv_building_ratio', 'hsv_enclosure', '建筑比 vs 围合度'),
         ('scene_hsv_green', 'hsv_GVI', '场景植被 vs HSV绿视率'),
-        ('scene_built_ratio', 'scene_urban_intensity', '场景建成 vs 场景城市强度'),
+        ('seg_vehicle_total', 'scene_urban_intensity', '车辆比 vs 场景城市强度'),
     ]
 
     fig, axes = plt.subplots(2, 2, figsize=(14, 12))
@@ -666,11 +744,11 @@ def generate_fig6_cluster(df):
         'hsv_GVI': 'mean', 'hsv_sky_ratio': 'mean',
         'hsv_building_ratio': 'mean', 'hsv_road_ratio': 'mean',
         'scene_hsv_green': 'mean', 'scene_hsv_building': 'mean',
-        'scene_hsv_road': 'mean', 'hsv_openness': 'mean',
+        'scene_hsv_road': 'mean', 'seg_vehicle_total': 'mean',
     })
 
     indicators = list(cluster_means.columns)
-    labels = ['GVI', '天空', '建筑', '路面', '场景绿', '场景建筑', '场景路面', '开放度']
+    labels = ['GVI', '天空', '建筑', '路面', '场景绿', '场景建筑', '场景路面', '车辆']
 
     n_clusters = len(cluster_means)
     cluster_names = {
@@ -719,7 +797,7 @@ def generate_fig6_cluster(df):
 
 
 def generate_fig7_cityscapes_dist(df):
-    """图7: COCO目标检测 + HSV场景分割 综合分布图"""
+    """图7: 语义分割类别分布 + HSV场景分割 综合图"""
     locations = sorted([loc for loc in df['location'].unique() if loc != 'unknown'])
 
     fig, axes = plt.subplots(1, 2, figsize=(18, 8))
@@ -750,23 +828,39 @@ def generate_fig7_cityscapes_dist(df):
     ax.legend(fontsize=9, ncol=2, loc='upper right')
     ax.spines['top'].set_visible(False)
 
-    # 右: COCO 非背景类别分布 (排除background)
+    # 右: 语义分割非背景/非主类分布
     ax2 = axes[1]
-    coco_non_bg = [c for c in COCO_CLASSES if c != 'background']
-    coco_labels = [c for c in coco_non_bg]
-    coco_vals = [df[f'coco_{c}'].mean() for c in coco_non_bg if f'coco_{c}' in df.columns]
+    # 获取所有 seg_ 列
+    seg_cols = [c for c in df.columns if c.startswith('seg_')]
+    # 排除聚合列
+    skip = ['seg_vehicle_total', 'seg_people_total', 'seg_veg_total',
+            'seg_road_total', 'seg_built_total']
+    seg_cols = [c for c in seg_cols if c not in skip]
+    # 提取类名
+    seg_names = [c.replace('seg_', '') for c in seg_cols]
 
-    if coco_vals:
-        sorted_idx = np.argsort(coco_vals)[::-1]
-        sorted_labels = [coco_labels[i] for i in sorted_idx]
-        sorted_vals = [coco_vals[i] for i in sorted_idx]
+    if seg_cols:
+        means = [df[c].mean() for c in seg_cols]
+        # 排除占比最大的背景类(如果是COCO的background)
+        non_bg_idx = [i for i, n in enumerate(seg_names) if n not in ('background',)]
+        if non_bg_idx:
+            filtered_names = [seg_names[i] for i in non_bg_idx]
+            filtered_means = [means[i] for i in non_bg_idx]
+        else:
+            filtered_names = seg_names
+            filtered_means = means
+
+        sorted_idx = np.argsort(filtered_means)[::-1]
+        sorted_labels = [filtered_names[i] for i in sorted_idx]
+        sorted_vals = [filtered_means[i] for i in sorted_idx]
         bar_colors = ['#2E75B6' if v > 0.001 else '#CCCCCC' for v in sorted_vals]
         ax2.barh(range(len(sorted_labels)), sorted_vals, color=bar_colors,
                  alpha=0.85, edgecolor='white', linewidth=0.5)
         ax2.set_yticks(range(len(sorted_labels)))
         ax2.set_yticklabels(sorted_labels, fontsize=9)
         ax2.set_xlabel('平均像素占比', fontsize=11)
-        ax2.set_title('COCO 语义分割类别分布 (非背景)', fontsize=13, fontweight='bold')
+        model_label = 'Cityscapes' if MODEL_TYPE == 'cityscapes' else 'COCO'
+        ax2.set_title(f'{model_label} 语义分割类别分布 (非背景)', fontsize=13, fontweight='bold')
         ax2.invert_yaxis()
     ax2.spines['top'].set_visible(False)
     ax2.spines['right'].set_visible(False)
@@ -810,8 +904,8 @@ def generate_fig8_anomaly(df, anomaly_df):
 
     # 右: 关键指标Z-score热力图
     ax3 = axes[2]
-    z_cols = [c for c in anomaly_df.columns if c.startswith('z_hsv_') or c.startswith('z_scene_') or c.startswith('z_coco_')]
-    z_labels = [c.replace('z_hsv_', 'HSV-').replace('z_scene_', 'Scene-').replace('z_coco_', 'COCO-') for c in z_cols]
+    z_cols = [c for c in anomaly_df.columns if c.startswith('z_hsv_') or c.startswith('z_scene_') or c.startswith('z_seg_')]
+    z_labels = [c.replace('z_hsv_', 'HSV-').replace('z_scene_', 'Scene-').replace('z_seg_', 'Seg-') for c in z_cols]
     z_data = anomaly_df[z_cols].values.T
 
     im = ax3.imshow(z_data, aspect='auto', cmap='YlOrRd', vmin=0, vmax=4)
