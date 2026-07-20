@@ -213,9 +213,10 @@ def load_segmentation_model():
     import torch
 
     # ── 尝试 1: Cityscapes 预训练 (Koushim/deeplabv3-resnet50-cityscapes) ──
-    # 注意: Koushim 模型使用 backbone. 前缀, 与 torchvision deeplabv3_resnet50 的 key 结构不完全匹配
-    # 加载后推理结果异常 (building=0%, person=51%), 暂禁用, 待修复 key 映射
-    cs_weights_candidates = []
+    cs_weights_candidates = [
+        Path(r'C:\Users\Administrator\.cache\torch\checkpoints\deeplabv3_r50_cityscapes_v2.pth'),
+        Path(r'C:\Users\Administrator\.cache\torch\checkpoints\deeplabv3_resnet50_cityscapes.pth'),
+    ]
     cs_weights = None
     for p in cs_weights_candidates:
         if p.exists() and p.stat().st_size > 160_000_000:
@@ -227,19 +228,57 @@ def load_segmentation_model():
         print(f"  权重文件: {cs_weights} ({cs_weights.stat().st_size/1e6:.0f}MB)")
         try:
             from torchvision.models.segmentation import deeplabv3_resnet50
-            # 先创建无权重模型 (避免额外下载 backbone)
             model = deeplabv3_resnet50(weights=None, num_classes=19, aux_loss=None)
             state = torch.load(str(cs_weights), map_location='cpu', weights_only=False)
             if isinstance(state, dict) and 'state_dict' in state:
                 state = state['state_dict']
             elif isinstance(state, dict) and 'model' in state:
                 state = state['model']
-            # Filter out unexpected keys
+
+            # 关键修复: Koushim 使用 backbone. 前缀, torchvision 也使用 backbone. 前缀
+            # 但 classifier 结构可能不同, 需要精细映射 + 去掉 backbone. 前缀的备选
             model_sd = model.state_dict()
-            filtered = {k: v for k, v in state.items() if k in model_sd and v.shape == model_sd[k].shape}
+            print(f"  模型 keys: {len(model_sd)}, 权重 keys: {len(state)}")
+
+            filtered = {}
+            unmapped_src = []
+            unmapped_dst = set(model_sd.keys())
+
+            for src_key, src_val in state.items():
+                # 策略1: 直接匹配
+                if src_key in model_sd and model_sd[src_key].shape == src_val.shape:
+                    filtered[src_key] = src_val
+                    unmapped_dst.discard(src_key)
+                    continue
+                # 策略2: 去掉 backbone. 前缀
+                if src_key.startswith('backbone.'):
+                    alt = src_key[len('backbone.'):]
+                    if alt in model_sd and model_sd[alt].shape == src_val.shape:
+                        filtered[alt] = src_val
+                        unmapped_dst.discard(alt)
+                        continue
+                # 策略3: 添加 backbone. 前缀
+                alt2 = 'backbone.' + src_key
+                if alt2 in model_sd and model_sd[alt2].shape == src_val.shape:
+                    filtered[alt2] = src_val
+                    unmapped_dst.discard(alt2)
+                    continue
+                unmapped_src.append(src_key)
+
+            print(f"  成功映射: {len(filtered)}/{len(model_sd)} layers")
+            if unmapped_src:
+                print(f"  未映射(源): {unmapped_src[:5]}")
+            if unmapped_dst:
+                print(f"  未映射(目标): {list(unmapped_dst)[:5]}")
+
             missing = model.load_state_dict(filtered, strict=False)
-            print(f"  Cityscapes 权重加载成功!")
-            print(f"  匹配层: {len(filtered)}, 缺失: {len(missing.missing_keys)}, 多余: {len(missing.unexpected_keys)}")
+            backbone_missing = [k for k in missing.missing_keys if 'backbone' in k]
+            print(f"  missing: {len(missing.missing_keys)}, unexpected: {len(missing.unexpected_keys)}")
+
+            if len(backbone_missing) > 50:
+                print(f"  [WARN] backbone 缺失 {len(backbone_missing)} keys, 回退 COCO")
+                raise ValueError(f"backbone mapping failed: {len(backbone_missing)} missing")
+
             MODEL_TYPE = 'cityscapes'
             ACTIVE_CLASSES = CITYSCAPES_CLASSES
             model.eval()
